@@ -17,7 +17,7 @@ namespace HouseBroker.Domain.Entities
         public int RoomCount { get; set; }
         public string BrokerId { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
-        public PropertyImage Images { get; set; } = new PropertyImage();
+        public ICollection<PropertyImage> Images { get; set; } = new List<PropertyImage>();
 
     }
 }
