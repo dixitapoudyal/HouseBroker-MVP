@@ -1,1 +1,1 @@
-# HouseBroker-MVP
+.NET 6 Web API for a house broker MVP. Built with Clean Architecture
