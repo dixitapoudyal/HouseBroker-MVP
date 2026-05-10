@@ -17,7 +17,8 @@ namespace HouseBroker.App.Auth.Dtos
         public double Area { get; set; }
         public int RoomCount { get; set; }
         public bool IsActive { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
         public List<string> ImageUrls { get; set; } = new();
         public decimal? CommissionAmount { get; set; }
     }

@@ -18,6 +18,7 @@ public partial class PropertyMapper
     [MapperIgnoreTarget(nameof(PropertyListing.BrokerId))]
     [MapperIgnoreTarget(nameof(PropertyListing.Images))]
     [MapperIgnoreTarget(nameof(PropertyListing.CreatedOn))]
+    [MapperIgnoreTarget(nameof(PropertyListing.UpdatedOn))]
     [MapperIgnoreTarget(nameof(PropertyListing.IsActive))]
     public partial void UpdateEntity(UpdatePropertyDto dto, PropertyListing property);
 
@@ -32,7 +33,8 @@ public partial class PropertyMapper
         Area = property.Area,
         RoomCount = property.RoomCount,
         IsActive = property.IsActive,
-        CreatedAt = property.CreatedOn,
+        CreatedOn = property.CreatedOn,
+        UpdatedOn = property.UpdatedOn,
         ImageUrls = property.Images?.Select(i => i.ImageUrl).ToList() ?? new()
     };
 }

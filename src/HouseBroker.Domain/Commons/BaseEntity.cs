@@ -10,6 +10,6 @@ namespace HouseBroker.Domain.Commons
     {
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
-        public DateTime? ModifiedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
     }
 }

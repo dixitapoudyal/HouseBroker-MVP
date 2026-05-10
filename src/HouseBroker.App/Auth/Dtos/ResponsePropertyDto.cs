@@ -25,7 +25,8 @@ namespace HouseBroker.App.Auth.Dtos
 
         public List<string> ImageUrls { get; set; } = new();
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
 
         // null unless current user is the owning broker
         public decimal? CommissionAmount { get; set; }
