@@ -1,7 +1,10 @@
 ﻿using HouseBroker.App.Auth.Interfaces;
+using HouseBroker.App.Properties.Interfaces;
 using HouseBroker.App.Properties.Mappings;
+using HouseBroker.Infra.Commission;
 using HouseBroker.Infra.DBContext;
 using HouseBroker.Infra.Identity;
+using HouseBroker.Infra.Properties;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +36,9 @@ namespace HouseBroker.Infra
             services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<PropertyMapper>();
+            services.AddMemoryCache();
+            services.AddScoped<ICommissionService, CommissionService>();
+            services.AddScoped<IPropertyService, PropertyService>();
 
             return services;
         }
