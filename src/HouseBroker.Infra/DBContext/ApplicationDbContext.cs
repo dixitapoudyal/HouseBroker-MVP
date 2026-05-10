@@ -16,7 +16,7 @@ namespace HouseBroker.Infra.DBContext
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }
 
-        public DbSet<PropertyInfo> Properties => Set<PropertyInfo>();
+        public DbSet<PropertyListing> Properties => Set<PropertyListing>();
         public DbSet<PropertyImage> PropertyImages => Set<PropertyImage>();
         public DbSet<CommissionPrice> CommissionRates => Set<CommissionPrice>();
 

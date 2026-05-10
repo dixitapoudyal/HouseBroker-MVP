@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace HouseBroker.Infra.Config
 {
-    public class PropertyConfig: IEntityTypeConfiguration<PropertyInfo>
+    public class PropertyConfig: IEntityTypeConfiguration<PropertyListing>
     {
-        public void Configure(EntityTypeBuilder<PropertyInfo> builder)
+        public void Configure(EntityTypeBuilder<PropertyListing> builder)
         {
             builder.ToTable("PropertyInfo");
             builder.HasKey(p => p.Id);

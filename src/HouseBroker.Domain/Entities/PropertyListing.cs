@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HouseBroker.Domain.Entities
 {
-    public class PropertyInfo : BaseEntity
+    public class PropertyListing : BaseEntity
     {
         public string Title { get; set; }
         public string Description { get; set; }
