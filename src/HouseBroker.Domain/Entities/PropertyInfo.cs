@@ -17,6 +17,7 @@ namespace HouseBroker.Domain.Entities
         public decimal Price { get; set; }
         public int RoomCount { get; set; }
         public string BrokerId { get; set; } = string.Empty;
+        public string ContactPhone { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
         public ICollection<PropertyImage> Images { get; set; } = new List<PropertyImage>();
 
