@@ -1,7 +1,11 @@
     using HouseBroker.API.Middleware;
     using HouseBroker.Infra;
     using HouseBroker.Infra.DBContext;
+using HouseBroker.Infra.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
     var builder = WebApplication.CreateBuilder(args);
 
@@ -35,8 +39,24 @@ using Microsoft.OpenApi.Models;
     });
     });
     builder.Services.AddInfra(builder.Configuration); //wiring infrastrtucture
+    var jwt = builder.Configuration.GetSection("Jwt").Get<JWTConfiguration>()!;
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwt.Issuer,
+            ValidAudience = jwt.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Secret)),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
 
-    var app = builder.Build();
+var app = builder.Build();
     using (var scope = app.Services.CreateScope())
     {
         await RoleSeeder.SeedRolesAsync(scope.ServiceProvider);
