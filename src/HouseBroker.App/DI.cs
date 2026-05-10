@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HouseBroker.App
 {
-    public static class DI
+/*    public static class DI
     {
         public static IServiceCollection AddApp(
        this IServiceCollection services)
@@ -17,5 +17,5 @@ namespace HouseBroker.App
             // validators and services will be registered here in later phases
             return services;
         }
-    }
+    }*/
 }
