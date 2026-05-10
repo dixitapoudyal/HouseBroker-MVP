@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HouseBroker.Domain.Entities
 {
-    public class UserRoles
+    public static class UserRoles
     {
-        public string Broker = "Broker";
-        public string Seeker = "Seeker";
+        public const string Broker = "Broker";
+        public const string Seeker = "Seeker";
     }
 }
