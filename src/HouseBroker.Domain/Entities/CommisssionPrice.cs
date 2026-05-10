@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HouseBroker.Domain.Commons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HouseBroker.Domain.Entities
 {
-    public class CommissionRate : BaseEntity
+    public class CommissionPrice : BaseEntity
     {
         public decimal MinPrice { get; set; }
         public decimal? MaxPrice { get; set; } 
