@@ -1,12 +1,11 @@
 ﻿using HouseBroker.App.Auth.D;
-using HouseBroker.App.Auth.Dtos;
 using HouseBroker.App.Auth.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace HouseBroker.Infra.Identity;
 
-public class AuthService
+public class AuthService: IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IJwtTokenService _tokenService;
