@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace HouseBroker.Infra.DBContext.Migration
+namespace HouseBroker.Infra.DBContext.Migrations
 {
     public partial class InitialMigration : Migration
     {
