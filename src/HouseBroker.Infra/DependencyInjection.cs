@@ -1,4 +1,5 @@
-﻿using HouseBroker.Infra.DBContext;
+﻿using HouseBroker.App.Auth.Interfaces;
+using HouseBroker.Infra.DBContext;
 using HouseBroker.Infra.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -27,7 +28,9 @@ namespace HouseBroker.Infra
             }).AddEntityFrameworkStores<ApplicationDbContext>()
               .AddDefaultTokenProviders();
 
-            // UserMapper will be registered here later
+            services.Configure<JWTConfiguration>(configuration.GetSection("Jwt"));
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             return services;
         }
