@@ -21,6 +21,7 @@ namespace HouseBroker.Infra.Config
             builder.Property(p => p.Description).HasMaxLength(2000);
             builder.Property(p => p.Location).IsRequired().HasMaxLength(200);
             builder.Property(p => p.BrokerId).IsRequired();
+            builder.Property(p => p.ContactPhone).HasMaxLength(20);
 
             builder.Property(p => p.Price).HasColumnType("decimal(18,2)");
 
