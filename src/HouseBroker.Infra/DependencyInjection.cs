@@ -1,4 +1,5 @@
 ﻿using HouseBroker.App.Auth.Interfaces;
+using HouseBroker.App.Properties.Mappings;
 using HouseBroker.Infra.DBContext;
 using HouseBroker.Infra.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +32,7 @@ namespace HouseBroker.Infra
             services.Configure<JWTConfiguration>(configuration.GetSection("Jwt"));
             services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<PropertyMapper>();
 
             return services;
         }
