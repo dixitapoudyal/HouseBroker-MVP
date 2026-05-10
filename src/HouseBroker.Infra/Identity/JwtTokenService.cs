@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HouseBroker.Infra.Identity
 {
-    public class JwtTokenService
+    public class JwtTokenService: IJwtTokenService
     {
         public readonly JWTConfiguration _jwtConfig;
         public JwtTokenService(IOptions<JWTConfiguration> jwtconfig)
