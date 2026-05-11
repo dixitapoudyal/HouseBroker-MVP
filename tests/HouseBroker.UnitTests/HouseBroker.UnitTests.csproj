@@ -22,4 +22,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\HouseBroker.API\HouseBroker.API.csproj" />
+    <ProjectReference Include="..\..\src\HouseBroker.Domain\HouseBroker.Domain.csproj" />
+    <ProjectReference Include="..\..\src\HouseBroker.Infra\HouseBroker.Infra.csproj" />
+    <ProjectReference Include="..\..\src\HouseBroker.App\HouseBroker.App.csproj" />
+  </ItemGroup>
+
 </Project>
