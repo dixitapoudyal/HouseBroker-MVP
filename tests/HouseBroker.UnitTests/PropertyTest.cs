@@ -52,4 +52,36 @@ public class PropertyTest
 		saved.BrokerId.Should().Be("xyz123");
 		saved.Images.Should().HaveCount(1);
 	}
+
+	[Fact]
+	public async Task GetProeprty_dont_show_commission_to_non_owner()
+	{
+		var db = TestHelper.CreateInMemoryDb();
+		var mapper = new PropertyMapper();
+		var commissionMock = new Mock<ICommissionService>();
+		var service = new PropertyService(db, mapper, commissionMock.Object);
+
+		// broker A creates a property
+		var dto = new CreatePropertyDto
+		{
+			Title = "Test11",
+			Description = "x",
+			PropertyType = "Land",
+			Location = "Kathmandu",
+			Price = 3000000,
+			ContactPhone = "9899554645"
+		};
+
+		var created = await service.CreateAsync(dto, brokerId: "broker1");
+
+		var resultForOtherUser = await service.GetByIdAsync(created.Id, currentUserId: "broker2");//another user requests property
+
+		// commission should not be set since broker2 doesn't own that listing
+		resultForOtherUser.CommissionAmount.Should().BeNull();
+
+		// for completeness - same call with the owner should return commission
+		commissionMock.Setup(c => c.CalculateAsync(3000000m)).ReturnsAsync(60_000m);
+		var resultForOwner = await service.GetByIdAsync(created.Id, currentUserId: "broker1");
+		resultForOwner.CommissionAmount.Should().Be(60000m);
+	}
 }
