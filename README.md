@@ -4,23 +4,32 @@ Mapping library Mapperly used instead.
 
 # House Broker API
 
-Brokers manage property listings; seekers (or anyone) browse and search. Includes a configurable commission engine and JWT auth with role separation.
+Brokers manage property listings; seekers (or anyone) browse and search. 
+Includes a configurable commission engine and JWT auth with role separation.
 
 
 ## Stack
 
-.NET 6 · ASP.NET Core Web API · EF Core 6 (SQL Server) · ASP.NET Core Identity · JWT Bearer · Mapperly · IMemoryCache · xUnit · Swagger / OpenAPI
+.NET 6 
+· ASP.NET Core Web API 
+· EF Core 6 (SQL Server) 
+· ASP.NET Core Identity 
+· JWT Bearer 
+· Mapperly 
+· IMemoryCache 
+· xUnit 
+· Swagger
 
 ## Prerequisites
 
 - .NET 6 SDK
-- SQL Server (LocalDB that ships with Visual Studio is fine, or any SQL Server instance)
+- SQL Server (LocalDB that ships with Visual Studio is fine)
 - EF Core CLI tool: `dotnet tool install --global dotnet-ef --version 6.0.36`
 
 ## Setup
 
 ```bash
-git clone <repo-url>
+git clone <repo-url-provided-inmail>
 cd HouseBroker-MVP
 
 dotnet restore
@@ -29,7 +38,7 @@ dotnet restore
 dotnet ef database update --project src/HouseBroker.Infra --startup-project src/HouseBroker.API
 ```
 
-The default connection string in `appsettings.json` targets `(localdb)\mssqllocaldb`. Update it if you use a different SQL Server instance.
+The default connection string is in `appsettings.json`: `(localdb)\mssqllocaldb`.
 
 ## Run
 
@@ -39,7 +48,7 @@ dotnet run --project src/HouseBroker.API
 
 Swagger UI is served at the root URL once the app is running (typically `https://localhost:7xxx`).
 
-## Quick smoke test
+## Quick smoke test suggestion
 
 In Swagger:
 
@@ -64,7 +73,7 @@ If those four things work, the core requirements are functional.
 ```
 src/
 ├── HouseBroker.Domain/    entities, enums, constants (zero external dependencies)
-├── HouseBroker.App/       DTOs, service interfaces, mappers, validators
+├── HouseBroker.App/       DTOs, interfaces, mappers, validators
 ├── HouseBroker.Infra/     EF Core, Identity, JWT, service implementations
 └── HouseBroker.API/       controllers, middleware, Program.cs
 
@@ -72,7 +81,7 @@ tests/
 └── HouseBroker.UnitTests/ commission engine, property service, controller tests
 ```
 
-Dependency direction: `API → App, API → Infra → App → Domain`. Domain has no project references.
+Dependency direction: `API → App, API → Infra → App → Domain`. Domain has no project references at all.
 
 ## Commission engine
 
@@ -84,18 +93,17 @@ Commission tiers live in the `CommissionRates` table and are seeded on first mig
 | 5,000,000 – 10,000,000 | 1.75% |
 | greater than 10,000,000 | 1.50% |
 
-Tiers can be edited directly in the database — no code redeploy needed. Values are cached in memory for 30 minutes after first read.
+Tiers can be edited directly in the database — no code redeploy needed. Values are cached in memory for 20 minutes after first read.
 
 Commission is included in property responses **only when the requesting user is the broker who owns the listing**. Anonymous users and other brokers see the property without it.
 
 ## Key decisions and trade-offs
 
-- **Mapperly chosen over AutoMapper.** AutoMapper's free versions are affected by an unpatched DoS vulnerability ([GHSA-rvv3-g6hj-g44x](https://github.com/advisories/GHSA-rvv3-g6hj-g44x)); patched versions require a paid license. Mapperly generates mapping code at compile time and is actively maintained.
 - **DbContext used directly in services.** A repository layer was skipped because EF Core's `DbContext` already is a Repository + Unit of Work. Tests use the EF Core InMemory provider for isolation.
-- **`ApplicationUser` lives in Infrastructure, not Domain.** `IdentityUser` is a framework type, so it belongs with infrastructure concerns. Domain entities reference users by `BrokerId` (string) only — keeping Domain framework-free.
-- **DI consolidated in Infrastructure.** All registrations live in `Infra/DependencyInjection.cs`. A larger project would split into a separate `AddApp()` extension for App-layer services.
+- **`ApplicationUser` lives in Infrastructure.** `IdentityUser` is a framework type, so it belongs with infrastructure concerns. Domain entities reference users by `BrokerId` (string) only — keeping Domain framework-free.
+- **DI consolidated in Infrastructure.** All registrations live in `Infra/DependencyInjection.cs`. FIRST IT WAS SPLIT INTO  a separate `AddApp()` extension for App-layer services.
 - **Image upload not implemented.** Property images are stored as URL strings. Production would integrate Azure Blob, AWS S3, or local filesystem upload.
-- **JWT secret committed in `appsettings.json`.** Suitable only for a demo. Production would use `dotnet user-secrets` or environment variables.
+- **JWT secret committed in `appsettings.json`.** Suitable only for a demo. Production would use dotnet user-secrets or environment variables.
 - **Built-in exception types over custom domain exceptions.** `InvalidOperationException`, `UnauthorizedAccessException`, and `KeyNotFoundException` are mapped to HTTP status codes by global middleware. A larger codebase would define custom domain exceptions.
 - **Data annotations on Auth DTOs.** Simple rules; FluentValidation packages are referenced for future complex property validators.
 
@@ -114,7 +122,7 @@ dotnet test
 ```
 
 Covers:
-- Commission engine across tier boundaries (`[Theory]` with seven cases)
+- Commission engine across tier boundaries (`[Theory]` with 7 cases)
 - Property service: create, ownership-based commission visibility, update/delete reject non-owners
 - Controller: create returns 201 with the expected DTO
 
