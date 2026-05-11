@@ -1,6 +1,6 @@
-    using HouseBroker.API.Middleware;
-    using HouseBroker.Infra;
-    using HouseBroker.Infra.DBContext;
+using HouseBroker.API.Middleware;
+using HouseBroker.Infra;
+using HouseBroker.Infra.DBContext;
 using HouseBroker.Infra.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -40,7 +40,11 @@ using System.Text;
     });
     builder.Services.AddInfra(builder.Configuration); //wiring infrastrtucture
     var jwt = builder.Configuration.GetSection("Jwt").Get<JWTConfiguration>()!;
-    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
