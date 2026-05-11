@@ -24,6 +24,7 @@ namespace HouseBroker.App.Auth.Dtos
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
+        public string ContactPhone { get; set; } = string.Empty;
         [Range(0, 100)]
         public int RoomCount { get; set; }
 
