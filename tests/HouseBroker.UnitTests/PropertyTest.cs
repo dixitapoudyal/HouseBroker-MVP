@@ -6,6 +6,7 @@ using HouseBroker.Infra.Properties;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
+using HouseBroker.App.Properties.Dtos;
 
 namespace HouseBroker.UnitTests.Properties;
 
@@ -40,7 +41,7 @@ public class PropertyTest
 
 		var result = await service.CreateAsync(dto, brokerId: "xyz123");
 
-		// ---- assert ----
+		// assert
 		// the result dto should look right
 		result.Id.Should().BeGreaterThan(0);
 		result.Title.Should().Be("3BHK in Lalitpur");
