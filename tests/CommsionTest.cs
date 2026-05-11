@@ -33,7 +33,15 @@ public class CommissionTest
 		return new CommissionService(db, cache);
 	}
 	[Theory]
+
 	[InlineData(1000000, 20000)]
+	[InlineData(4999999, 99999.98)]
+	// tier 2
+	[InlineData(5000000, 87500)]
+	[InlineData(7500000, 131250)]
+	// tier 3
+	[InlineData(10000000, 150000)]
+	[InlineData(50000000, 750000)]
 	public async Task CalculateAsync_commission(
 	decimal price, decimal expected)
 	{
